@@ -1,0 +1,16 @@
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.button {
+  background-color: red;
+  color: white;
+}
+
