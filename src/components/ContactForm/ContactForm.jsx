@@ -1,46 +1,50 @@
+// ContactForm.jsx
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/contactsOps';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact, selectContacts } from '../../redux/contactsSlice';
 import styles from './ContactForm.module.css';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    dispatch(addContact({ name, phone }));
+    if (contacts.some(contact => contact.name === name)) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
+    dispatch(addContact({ name, number }));
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Name"
-        className={styles.input}
-        required
-      />
-      <input
-        type="tel"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        placeholder="Phone"
-        className={styles.input}
-        required
-      />
-      <button type="submit" className={styles.button}>Add Contact</button>
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <label>
+        Name
+        <input
+          type="text"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        Number
+        <input
+          type="tel"
+          value={number}
+          onChange={e => setNumber(e.target.value)}
+          required
+        />
+      </label>
+      <button type="submit">Add contact</button>
     </form>
   );
 };
 
 export default ContactForm;
-
-
-
-
 
