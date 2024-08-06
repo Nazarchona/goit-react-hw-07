@@ -1,7 +1,8 @@
 // ContactForm.jsx
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, selectContacts } from '../../redux/contactsSlice';
+import { addContact } from '../../redux/contactsSlice';
+import { selectContacts } from '../../redux/contactsSlice';
 import styles from './ContactForm.module.css';
 
 const ContactForm = () => {
@@ -47,4 +48,5 @@ const ContactForm = () => {
 };
 
 export default ContactForm;
+
 
